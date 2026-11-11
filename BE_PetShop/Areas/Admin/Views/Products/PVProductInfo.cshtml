@@ -1,0 +1,32 @@
+﻿@model BE_PetShop.Models.Product
+
+<style>
+    img {
+        height: 250px;
+        width: 250px;
+        object-fit: cover;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row bg-info" style="padding: 15px;">
+        <div class="col-md-3">
+            <img src="@Url.Content(string.IsNullOrEmpty(Model.ImageUrl) ? "~/Content/images/default_img.png" : Model.ImageUrl)" />
+        </div>
+        <div class="col-md-9">
+            <dl class="dl-horizontal">
+                <dt>Tên sản phẩm</dt>
+                <dd>@Html.DisplayFor(model => model.ProductName)</dd>
+
+                <dt>Mô tả</dt>
+                <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt>Đơn giá</dt>
+                <dd>@string.Format("{0:N0} VNĐ", Model.Price)</dd>
+
+                <dt>Danh mục</dt>
+                <dd>@Html.DisplayFor(model => model.Category.CategoryName)</dd>
+            </dl>
+        </div>
+    </div>
+</div>

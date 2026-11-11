@@ -1,0 +1,30 @@
+﻿@model BE_PetShop.Models.ViewModel.ProductSearchVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<h2 class="bg-success">DANH SÁCH SẢN PHẨM</h2>
+
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <div class="form-inline" style="margin-bottom: 15px; display: flex; gap: 10px;">
+        @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Nhập tên, mô tả...", style = "width: 250px;" })
+        @Html.TextBoxFor(m => m.MinPrice, new { @class = "form-control", placeholder = "Giá tối thiểu", type = "number", style = "width: 150px;" })
+        @Html.TextBoxFor(m => m.MaxPrice, new { @class = "form-control", placeholder = "Giá tối đa", type = "number", style = "width: 150px;" })
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <strong>Sắp xếp theo:</strong>
+        @Html.ActionLink("Tên tăng dần", "Index", new { sortOrder = "name_asc", searchTerm = Model.SearchTerm, minPrice = Model.MinPrice, maxPrice = Model.MaxPrice }) |
+        @Html.ActionLink("Tên giảm dần", "Index", new { sortOrder = "name_desc", searchTerm = Model.SearchTerm, minPrice = Model.MinPrice, maxPrice = Model.MaxPrice }) |
+        @Html.ActionLink("Giá tăng dần", "Index", new { sortOrder = "price_asc", searchTerm = Model.SearchTerm, minPrice = Model.MinPrice, maxPrice = Model.MaxPrice }) |
+        @Html.ActionLink("Giá giảm dần", "Index", new { sortOrder = "price_desc", searchTerm = Model.SearchTerm, minPrice = Model.MinPrice, maxPrice = Model.MaxPrice })
+    </div>
+}
+
+@Html.Partial("PVListProduct", Model)
+
+<p style="margin-top: 15px;">
+    @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-primary" })
+</p>
