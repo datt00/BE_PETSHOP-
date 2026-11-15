@@ -11,13 +11,13 @@ namespace BE_PetShop
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            // Route mặc định: mở "/" sẽ chạy StoreController.Index()
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                 name: "Default", // tên route
+                 url: "{controller}/{action}/{id}", // mẫu URL /Controller/Action/Id
+                 defaults: new { controller = "The Pet Viet Nam", action = "Index", id = UrlParameter.Optional } // Controller và Action mặc định
+             );
+
         }
     }
 }

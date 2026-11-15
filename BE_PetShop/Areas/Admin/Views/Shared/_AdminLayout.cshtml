@@ -3,35 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Trang Quản Trị PetShop</title>
+    <title>@ViewBag.Title - Quản trị Website</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #222;">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
-            <div class="navbar-header">
-                @Html.ActionLink("My Store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Danh mục", "Index", "Categories", new { area = "Admin" }, null)</li>
-                    <li>@Html.ActionLink("Sản phẩm", "Index", "Products", new { area = "Admin" }, null)</li>
+            @Html.ActionLink("ThePetVietNam", "Index", "Admin/Home", new { area = "Admin" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Danh mục", "Index", "Categories", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Sản phẩm", "Index", "Products", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Khách hàng", "Index", "Customers", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Đơn hàng", "Index", "Orders", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Tài khoản", "Index", "Users", new { area = "Admin" }, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
-    </div>
-
-    <div class="container body-content" style="margin-top: 70px;">
-        <h2>TRANG QUẢN TRỊ</h2>
-        <hr />
+    </nav>
+    <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Tên ứng dụng</p>
-            <p><strong>Contact</strong></p>
-            <p>Tên các thành viên trong nhóm</p>
+            <p>&copy; @DateTime.Now.Year - THEPETVIETNAM</p>
+            <h4>Contact</h4>
+            <p>Địa chỉ: 828 Sư Vạn Hạnh, Quận 10, TP. HCM</p>
+            <p>Điện thoại: 0123 456 789</p>
+            <p>Email: ThePetVietNam@gmail.com</p>
         </footer>
     </div>
 

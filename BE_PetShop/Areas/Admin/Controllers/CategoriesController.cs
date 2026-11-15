@@ -42,7 +42,19 @@ namespace BE_PetShop.Areas.Admin.Controllers
 
         public ActionResult Edit(int? id)
         {
-            return View(Details(id));
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Category category = db.Categories.Find(id);
+
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(category);
         }
 
         [HttpPost]
@@ -60,7 +72,19 @@ namespace BE_PetShop.Areas.Admin.Controllers
 
         public ActionResult Delete(int? id)
         {
-            return View(Details(id));
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Category category = db.Categories.Find(id);
+
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(category);
         }
 
         [HttpPost, ActionName("Delete")]

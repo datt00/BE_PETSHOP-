@@ -11,7 +11,9 @@ namespace BE_PetShop.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web;
+
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,6 +27,7 @@ namespace BE_PetShop.Models
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public int CategoryID { get; set; }
+        public decimal ProductPrice { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
         public virtual Category Category { get; set; }
