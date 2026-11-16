@@ -29,7 +29,13 @@
                @foreach (var product in Model.Products)
                {
                    <tr>
-                       <td> <img src="@Html.DisplayFor(modelItem => product.ImageUrl)" /></td>
+                       
+                       <td>
+                           @if (!string.IsNullOrEmpty(product.ImageUrl))
+                           {
+                               <img src="@Url.Content("~/Content/images/" + product.ImageUrl)" alt="@product.ProductName" />
+                           }
+                       </td>
 
                        <td>@Html.DisplayFor(modelItem => product.ProductName)</td>
 

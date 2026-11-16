@@ -92,11 +92,25 @@ namespace BE_PetShop.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ProductImage,ProductDescription")] 
-                Product product)
+        public ActionResult Create([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ImageUrl,Description,IsActive")] Product product, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
+                // 1. Xử lý lưu file ảnh nếu người dùng có chọn ảnh
+                if (ImageFile != null && ImageFile.ContentLength > 0)
+                {
+                    string fileName = Path.GetFileName(ImageFile.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                    ImageFile.SaveAs(path);
+                    product.ImageUrl = fileName; // Lưu tên file vào DB
+                }
+
+                // 2. Đảm bảo IsActive có giá trị mặc định là true để tránh lỗi NOT NULL
+                if (product.IsActive == null)
+                {
+                    product.IsActive = true;
+                }
+
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -126,11 +140,18 @@ namespace BE_PetShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ProductImage,ProductDescription")] 
-                Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ImageUrl,Description,IsActive")] Product product, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
+                if (ImageFile != null && ImageFile.ContentLength > 0)
+                {
+                    string fileName = Path.GetFileName(ImageFile.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                    ImageFile.SaveAs(path);
+                    product.ImageUrl = fileName;
+                }
+
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

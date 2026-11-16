@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BE_PetShop.Models.Order>
+
+@{
+    ViewBag.Title = "Quản lý Đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 style="margin-bottom: 20px;">Danh sách Đơn hàng</h2>
+
+<table class="table table-bordered table-hover" style="background: #fff;">
+    <thead>
+        <tr style="background: #f1f5f9;">
+            <th>Mã đơn</th>
+            <th>Khách hàng</th>
+            <th>Số điện thoại</th>
+            <th>Ngày đặt</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái đơn</th>
+            <th>Thanh toán</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><strong>#@item.OrderID</strong></td>
+                <td>@(item.Customer != null ? item.Customer.FullName : "Khách lẻ")</td>
+                <td>@item.Phone</td>
+                <td>@(item.OrderDate.HasValue ? item.OrderDate.Value.ToString("dd/MM/yyyy HH:mm") : "")</td>
+                <td style="color: #dc2626; font-weight: bold;">@item.TotalAmount.ToString("#,##0") đ</td>
+                <td><span class="label label-info">@item.OrderStatus</span></td>
+                <td><span class="label label-default">@item.PaymentStatus</span></td>
+                <td>
+                    <a href="@Url.Action("Details", "Orders", new { id = item.OrderID })" class="btn btn-primary btn-sm">
+                        Xem & Xử lý
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

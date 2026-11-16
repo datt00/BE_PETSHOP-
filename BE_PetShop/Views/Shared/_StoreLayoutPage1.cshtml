@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - The Pet Viet Nam</title>
     @Styles.Render("~/Content/css") 
-    <link href="~/Content/ThePetVietNam.css" rel="stylesheet" />
+    <link href="~/Content/ThePetVietNam.css?v=3" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -18,13 +18,23 @@
         <div class="container">
             <a class="brand" href="@Url.Action("Index","Store")">THE PET<span> VIET NAM</span></a>
             <nav class="store-nav">
-                @Html.ActionLink("Trang chủ", "Index", "Store") @* text, action, controller *@
+                @Html.ActionLink("Trang chủ", "Index", "Store")
                 <a href="#">Giới thiệu</a>
-                <a href="#">Sản phẩm</a>
+                <a href="@Url.Action("Index", "Store")">Sản phẩm</a>
                 <a href="#">Tin tức</a>
                 <a href="#">Liên hệ</a>
-                <a href="#">Giỏ hàng</a>
-                <a href="#">Đăng nhập</a>
+                <a href="@Url.Action("Index", "Cart")">Giỏ hàng</a>
+
+                @if (Session["Customer"] != null)
+                {
+                    var cus = (BE_PetShop.Models.Customer)Session["Customer"];
+                    <span style="font-weight: 600; color: #2563eb; margin-left: 12px;">Xin chào, @cus.FullName</span>
+                    <a href="@Url.Action("Logout", "Account")">Đăng xuất</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")">Đăng nhập</a>
+                }
             </nav>
         </div>
     </header>
